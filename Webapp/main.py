@@ -34,9 +34,6 @@ def homepage():
     if 'info_shown' not in st.session_state:
         st.session_state['info_shown'] = False
 
-    with open('prd_by_file.json', 'r') as f:
-        prd_by_file = json.load(f)
-
     with st.container(horizontal=True):
         st.write("Check out the **FAQ** and **Metrics** pages:")
         st.page_link(st.Page("faq.py", title="FAQ", icon="📝"))
@@ -63,7 +60,6 @@ def homepage():
             time.sleep(0.005)
             pbar.progress(percent+1, text="Thinking..")
         prediction, prob = predict(dog, model, breeds, create_transforms())
-        st.session_state['last_prediction'] = prediction
         result = ""
         pbar.empty()
         if prediction.startswith(('A', 'E', 'I', 'O', 'U')):
@@ -87,6 +83,9 @@ def homepage():
                 unsafe_allow_html=True
             )
         else:
+            with open('prd_by_file.json', 'r') as f:
+                prd_by_file = json.load(f)
+                
             if dog.name not in prd_by_file:
                 prd_by_file[dog.name] = 0
             st.balloons()
@@ -109,6 +108,7 @@ def homepage():
                 breeds_dict[prediction] += 1
                 update_breeds('breeds.csv', breeds_dict)
                 prd_by_file[dog.name] = 1
+                st.session_state['last_prediction'] = prediction
                 with open('prd_by_file.json', 'w') as f:
                     json.dump(prd_by_file, f)
 
