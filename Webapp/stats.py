@@ -29,5 +29,6 @@ if count > 0:
 
     st.subheader('Top 10 Predictions Chart')
     st.bar_chart(top10, x='Breed', y='Predictions')
+    st.caption('Metrics may include incorrect predictions', text_alignment="center")
 else:
     st.write('No prediction data yet. Check back later.')
