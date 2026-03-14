@@ -4,11 +4,24 @@ import time
 
 @st.cache_resource
 def cache_model():
-    return load_model('Models/dog-classifier-ConvNextSmall-webapp_merged-classes.pth', 119)
+    return load_model('dog-classifier-ConvNextSmall-webapp_merged-classes.pth', 119)
 
 @st.cache_resource
 def cache_breeds():
     return get_breeds('breeds.csv')
+
+@st.dialog("Please note!", icon="ℹ️")
+def info_popup():
+    st.write('Dog Detector is not 100% accurate and may predict your dog incorrectly. To improve your chances of getting an accurate prediction, make sure that:')
+    st.write(
+        """
+        1. The uploaded photo has **good lighting** and is **not** strongly tinted
+        2. The whole dog, including the **face**, is **clearly visible** and not obscured by anything
+        3. Have only **one** dog in the uploaded photo. Breeds of multiple dogs in a single image **can't** be identified individually
+        4. Avoid images of dogs with a diverse mix of breeds. Visit the [FAQ](/faq) to learn more about this
+        """
+    )
+    st.write('It is recommended to visit the [FAQ](/faq) for more info')
 
 def homepage():
     st.title('🐶 Welcome to Dog Detector!')
@@ -16,12 +29,19 @@ def homepage():
     st.write(
         'Dog Detector is a neural network powered web-app that can detect your dog\'s breed with just a picture. Try it out below by uploading an image!'
     )
+
+    if 'info_shown' not in st.session_state:
+        st.session_state['info_shown'] = False
+
     with st.container(horizontal=True):
         st.write("Check out the **FAQ** and **Metrics** pages:")
         st.page_link(st.Page("faq.py", title="FAQ", icon="📝"))
         st.page_link(st.Page("stats.py", title="Prediction Metrics", icon="📊"))
         
     breeds_dict = get_breeds_dict('breeds.csv')
+    if not st.session_state['info_shown']:
+        info_popup()
+        st.session_state['info_shown'] = True
 
     col1, col2 = st.columns(2, gap="large")
     with col1:
@@ -78,6 +98,7 @@ def homepage():
                 """, 
                 unsafe_allow_html=True
             )
+            st.caption('Predictions may not always be accurate. Refer to the [FAQ](/faq) for more info.', text_alignment="center")
             breeds_dict[prediction] += 1
             update_breeds('breeds.csv', breeds_dict)
 
@@ -86,6 +107,6 @@ pg = st.navigation([
     st.Page(homepage, title="Home", icon="🐶"),
     st.Page("faq.py", title="FAQ", icon="📝"),
     st.Page("stats.py", title="Prediction Metrics", icon="📊"),
-    st.Page("about.py", title="Contact", icon="👤")
+    st.Page("about.py", title="About & Contact", icon="👤")
 ])
 pg.run()
