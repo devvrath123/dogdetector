@@ -15,9 +15,9 @@ def info_popup():
     st.write('Dog Detector is not 100% accurate and may predict your dog incorrectly. To improve your chances of getting an accurate prediction, make sure that:')
     st.write(
         """
-        1. The uploaded photo has good lighting
-        2. The whole dog, including the face, is clearly visible and not obscured by anything
-        3. Have only **one** dog in the uploaded photo
+        1. The uploaded photo has **good lighting**
+        2. The whole dog, including the **face**, is **clearly visible** and not obscured by anything
+        3. Have only **one** dog in the uploaded photo. Breeds of multiple dogs in a single image **can't** be identified individually
         4. Avoid images of dogs with a diverse mix of breeds. Visit the [FAQ](/faq) to learn more about this
         """
     )
