@@ -1,19 +1,26 @@
 [
     {
         "q": "Why is my dog not identified correctly?", 
-        "a": "Dog Detector is not 100% accurate and may sometimes predict incorrectly. It may confuse certain breeds. The model is also not trained on every dog breed, rather it is trained on a total of 119 breeds."
+        "a": "Dog Detector is not 100% accurate and may sometimes predict incorrectly. To improve your chances of getting an accurate prediction, make sure the uploaded photo has good lighting, and that the dog, including its face is clearly visible and not obscured. The model is trained on a total of 119 breeds. It **cannot predict** breeds that it was not trained on."
     },
     {
-        "q": "What are all the breeds that Dog Detector can predict?",
-        "a": "Dog Detector can predict all the well-known dog breeds such as the Chihuahua, Doberman, German Shepherd, all Retriever types, Collies, Terriers, Spaniels, Siberian Husky, Malamute etc. In total it can predict 119 breeds. Visit the [Github repository](https://github.com/devvrath123/dogdetector) for the complete list."
-
+        "q": "What are all the breeds that Dog Detector can identify?",
+        "a": "Dog Detector can identify all the well-known dog breeds such as the Chihuahua, Doberman, German Shepherd, all Retriever types, Collies, Terriers, Spaniels, Siberian Husky, Malamute etc. In total it can predict 119 breeds. Visit the [Github repository](https://github.com/devvrath123/dogdetector) for the complete list."
     },
     {
         "q": "What happens if I upload an image that doesn't contain a dog?",
         "a" : "Please note that the app tries its best to filter images that do not contain dogs, but it may still predict such images as specific dog breeds."
     },
     {
-        "q": "How does the app work?",
+        "q": "What happens if I upload an image of a mixed breed dog?",
+        "a": "Dog Detector cannot classify a mixed breed dog into its constituent breeds, however if the dog mostly has the visual characteristics of one of the constituent breeds, Dog Detector may be able to detect that breed."
+    },
+    {
+        "q": "What happens if I upload an image with multiple dogs?",
+        "a": "Dog Detector will not classify the breeds of all the dogs individually. It is highly recommended to stick to **one** dog per image. It may however correctly predict the dog that's most clearly visible."
+    },
+    {
+        "q": "How does Dog Detector work?",
         "a": "Dog Detector uses a convolutional neural network trained on a version of the Stanford Dogs dataset. The uploaded image is fed into the network and it returns a list of predictions. The prediction with the highest confidence level is chosen. For a more detailed explanation visit the [GitHub repository](https://github.com/devvrath123/dogdetector)."
     },
     {
