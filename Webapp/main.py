@@ -1,6 +1,7 @@
 import streamlit as st
 from model import load_model, create_transforms, predict, get_breeds, get_breeds_dict, update_breeds
 import time
+import json
 
 @st.cache_resource
 def cache_model():
@@ -21,7 +22,7 @@ def info_popup():
         4. Avoid images of dogs with a diverse mix of breeds. Visit the [FAQ](/faq) to learn more about this
         """
     )
-    st.write('It is recommended to visit the [FAQ](/faq) for more info')
+    st.write('It is recommended to read the [FAQ](/faq)')
 
 def homepage():
     st.title('🐶 Welcome to Dog Detector!')
@@ -32,6 +33,9 @@ def homepage():
 
     if 'info_shown' not in st.session_state:
         st.session_state['info_shown'] = False
+
+    with open('prd_by_file.json', 'r') as f:
+        prd_by_file = json.load(f)
 
     with st.container(horizontal=True):
         st.write("Check out the **FAQ** and **Metrics** pages:")
@@ -83,6 +87,8 @@ def homepage():
                 unsafe_allow_html=True
             )
         else:
+            if dog.name not in prd_by_file:
+                prd_by_file[dog.name] = 0
             st.balloons()
             st.markdown(
                 f"""
@@ -99,8 +105,12 @@ def homepage():
                 unsafe_allow_html=True
             )
             st.caption('Predictions may not always be accurate. Refer to the [FAQ](/faq) for more info.', text_alignment="center")
-            breeds_dict[prediction] += 1
-            update_breeds('breeds.csv', breeds_dict)
+            if prd_by_file[dog.name] == 0:
+                breeds_dict[prediction] += 1
+                update_breeds('breeds.csv', breeds_dict)
+                prd_by_file[dog.name] = 1
+                with open('prd_by_file.json', 'w') as f:
+                    json.dump(prd_by_file, f)
 
 
 pg = st.navigation([
