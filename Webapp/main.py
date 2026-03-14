@@ -67,7 +67,7 @@ def homepage():
         else:
             result = f"That's a {prediction}!"
 
-        if prob < 40:
+        if prob < 35:
             st.markdown(
                 f"""
                 <div style="
