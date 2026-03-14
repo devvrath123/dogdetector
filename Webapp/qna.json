@@ -1,0 +1,31 @@
+[
+    {
+        "q": "Why is my dog not identified correctly?", 
+        "a": "Dog Detector is not 100% accurate and may sometimes predict incorrectly. It may confuse certain breeds. The model is also not trained on every dog breed, rather it is trained on a total of 119 breeds."
+    },
+    {
+        "q": "What are all the breeds that Dog Detector can predict?",
+        "a": "Dog Detector can predict all the well-known dog breeds such as the Chihuahua, Doberman, German Shepherd, all Retriever types, Collies, Terriers, Spaniels, Siberian Husky, Malamute etc. In total it can predict 119 breeds. Visit the [Github repository](https://github.com/devvrath123/dogdetector) for the complete list."
+
+    },
+    {
+        "q": "What happens if I upload an image that doesn't contain a dog?",
+        "a" : "Please note that the app tries its best to filter images that do not contain dogs, but it may still predict such images as specific dog breeds."
+    },
+    {
+        "q": "What happens if I upload an image of a mixed breed dog?",
+        "a": "Dog Detector cannot classify a mixed breed dog into its constituent breeds, however if the dog mostly has the visual characteristics of one breed, Dog Detector may be able to detect that breed."
+    },
+    {
+        "q": "How does the app work?",
+        "a": "Dog Detector uses a convolutional neural network trained on a version of the Stanford Dogs dataset. The uploaded image is fed into the network and it returns a list of predictions. The prediction with the highest confidence level is chosen. For a more detailed explanation visit the [GitHub repository](https://github.com/devvrath123/dogdetector)."
+    },
+    {
+        "q": "Where can I find the source code?",
+        "a": "The source code is available on the [GitHub repository](https://github.com/devvrath123/dogdetector)."
+    },
+    {
+        "q": "What kind of data do you collect?",
+        "a": "Your predictions are logged for the metrics page. Uploaded images are not stored."
+    }
+]
