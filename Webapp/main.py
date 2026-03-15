@@ -1,7 +1,6 @@
 import streamlit as st
 from model import load_model, create_transforms, predict, get_breeds, get_breeds_dict, update_breeds
 import time
-import json
 
 @st.cache_resource
 def cache_model():
@@ -60,6 +59,7 @@ def homepage():
             time.sleep(0.005)
             pbar.progress(percent+1, text="Thinking..")
         prediction, prob = predict(dog, model, breeds, create_transforms())
+        st.session_state['last_prediction'] = prediction
         result = ""
         pbar.empty()
         if prediction.startswith(('A', 'E', 'I', 'O', 'U')):
@@ -83,11 +83,6 @@ def homepage():
                 unsafe_allow_html=True
             )
         else:
-            with open('prd_by_file.json', 'r') as f:
-                prd_by_file = json.load(f)
-                
-            if dog.name not in prd_by_file:
-                prd_by_file[dog.name] = 0
             st.balloons()
             st.markdown(
                 f"""
@@ -104,14 +99,8 @@ def homepage():
                 unsafe_allow_html=True
             )
             st.caption('Predictions may not always be accurate. Refer to the [FAQ](/faq) for more info.', text_alignment="center")
-            if prd_by_file[dog.name] == 0:
-                breeds_dict[prediction] += 1
-                update_breeds('breeds.csv', breeds_dict)
-                prd_by_file[dog.name] = 1
-                st.session_state['last_prediction'] = prediction
-                with open('prd_by_file.json', 'w') as f:
-                    json.dump(prd_by_file, f)
-
+            breeds_dict[prediction] += 1
+            update_breeds('breeds.csv', breeds_dict)
 
 pg = st.navigation([
     st.Page(homepage, title="Home", icon="🐶"),
