@@ -1,5 +1,6 @@
 # dogdetector
 Streamlit-based web-app to detect dog breeds from input images using a convolutional neural network backend implemented with PyTorch. Trained on the Stanford Dogs dataset. 
+
 Webapp URL: https://huggingface.co/spaces/devvrath123/dogdetector
 
 ## Frontend & Deployment
