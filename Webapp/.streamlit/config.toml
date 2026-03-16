@@ -12,3 +12,7 @@ gatherUsageStats = false
 [theme]
 
 base = "light"
+
+[client]
+
+toolbarMode = "minimal"
