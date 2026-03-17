@@ -23,7 +23,11 @@ if count > 0:
         delta += str(count) + ' prediction (all time)'
     else:
         delta += str(count) + ' predictions (all time)'
-    st.metric("Most Popular Breed", popular_breed, delta=delta)
+    col1, col2 = st.columns([2.5, 1])
+    with col1:
+        st.metric("Most Popular Breed", popular_breed, delta=delta)
+    with col2:
+        st.metric("Global Total of Predictions", sum(breeds_dict.values()))
     breeds_df = pd.DataFrame(breeds_dict.items(), columns=['Breed', 'Predictions'])
     top10 = breeds_df.sort_values(by="Predictions", ascending=False).head(10).reset_index(drop=True)
 
